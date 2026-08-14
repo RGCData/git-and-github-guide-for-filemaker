@@ -10,3 +10,7 @@ To use AGENTS.md, copy it into the root of a project folder. Do not put password
 Written by Alex Seidler, RGC Data LLC
 alex@rgcdata.com
 https://rgcdata.com/
+
+EDIT: I demonstrating the capability to edit files directly inside your GitHub account, if you don't want to go through the complicated -u commit process.
+
+~~~ Hope you all enjoy.  FileMaker for life. - Alex
