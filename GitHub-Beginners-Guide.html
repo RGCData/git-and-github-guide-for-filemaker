@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A practical, human-written beginner guide to installing Git on Windows, creating a private GitHub repository, and uploading React, FileMaker, and other project folders safely.">
+  <meta name="author" content="Alex Seidler, RGC Data LLC">
+  <title>From Project Folder to GitHub | A Beginner Guide</title>
+  <style>
+    :root{--ink:#172033;--muted:#5c667a;--line:#e4e8ef;--soft:#f6f8fb;--blue:#2563eb;--blue-dark:#1d4ed8;--navy:#10213f;--green:#087f5b;--shadow:0 18px 50px rgba(16,33,63,.12)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:84px}body{margin:0;color:var(--ink);background:#fff;font:16px/1.7 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:var(--blue-dark)}a:hover{color:#123ea8}.wrap{width:min(1080px,calc(100% - 40px));margin:0 auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.nav{min-height:66px;display:flex;align-items:center;gap:20px}.brand{color:var(--navy);font-weight:800;text-decoration:none;white-space:nowrap}.links{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-left:auto}.links a{color:var(--muted);font-size:.92rem;text-decoration:none}.links a:hover{color:var(--navy)}
+    .help-button,.primary-button{border:0;border-radius:9px;padding:10px 15px;cursor:pointer;color:#fff;background:var(--blue);font:inherit;font-weight:700;box-shadow:0 5px 14px rgba(37,99,235,.2)}.help-button:hover,.primary-button:hover{color:#fff;background:var(--blue-dark)}.hero{padding:76px 0 58px;background:linear-gradient(145deg,#f7faff,#fff 58%)}.eyebrow{color:var(--blue-dark);font-size:.78rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}h1{max-width:800px;margin:12px 0 18px;color:var(--navy);font-size:clamp(2.2rem,5vw,4.3rem);line-height:1.07;letter-spacing:-.04em}h2{margin-top:0;color:var(--navy);font-size:clamp(1.5rem,3vw,2.1rem);line-height:1.25}h3{color:var(--navy);line-height:1.3}.hero p{max-width:770px;color:var(--muted);font-size:1.1rem}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.text-button{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:9px;color:var(--navy);background:#fff;font:inherit;text-decoration:none;font-weight:700;cursor:pointer}.text-button:hover{color:var(--navy);background:var(--soft)}
+    main{padding:54px 0 80px}section{margin:0 0 68px}.section-lead{max-width:780px;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.card{padding:23px;border:1px solid var(--line);border-radius:14px;background:#fff;box-shadow:0 8px 28px rgba(16,33,63,.05)}.card h3{margin-top:0}.step{display:grid;grid-template-columns:42px 1fr;gap:15px;align-items:start;margin:18px 0}.number{display:grid;width:38px;height:38px;place-items:center;border-radius:50%;color:#fff;background:var(--navy);font-weight:800}
+    pre{overflow-x:auto;margin:16px 0;padding:16px;border-radius:10px;color:#eaf1ff;background:#172033;font:.9rem/1.55 Consolas,"Courier New",monospace}code{padding:.12em .35em;border-radius:5px;color:#273b67;background:#eef3fb;font:.92em Consolas,"Courier New",monospace}pre code{padding:0;color:inherit;background:transparent}.callout{margin:22px 0;padding:17px 19px;border-left:4px solid #d59b00;border-radius:8px;background:#fff8df}.success{border-left-color:var(--green);background:#eaf8f2}.warning{border-left-color:#c0392b;background:#fff0ee}.toc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:24px 0 50px}.toc a{padding:13px 15px;border:1px solid var(--line);border-radius:9px;background:var(--soft);text-decoration:none;font-weight:700}.toc a:hover{background:#edf3ff}
+    .help-panel{padding:30px;border-radius:17px;color:#fff;background:var(--navy);box-shadow:var(--shadow)}.help-panel h2,.help-panel p{color:#fff}.help-panel p{max-width:780px;color:#dce7fb}.help-panel .help-button{color:var(--navy);background:#fff;box-shadow:none}.small{color:var(--muted);font-size:.92rem}footer{padding:34px 0 48px;color:var(--muted);border-top:1px solid var(--line);font-size:.92rem}footer h2{font-size:1.25rem}footer strong{color:var(--navy)}
+    dialog{width:min(560px,calc(100% - 32px));padding:0;border:0;border-radius:16px;color:var(--ink);box-shadow:0 24px 90px rgba(0,0,0,.28)}dialog::backdrop{background:rgba(8,18,38,.58);backdrop-filter:blur(3px)}.modal-head{display:flex;align-items:start;justify-content:space-between;gap:20px;padding:26px 26px 8px}.modal-body{padding:0 26px 26px}.modal-body h2{margin-bottom:8px}.close{border:0;border-radius:7px;color:var(--muted);background:var(--soft);font-size:1.2rem;cursor:pointer}.close:hover{color:var(--navy)}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    @media(max-width:760px){.wrap{width:min(100% - 28px,680px)}.nav{align-items:flex-start;padding:12px 0}.links{gap:10px 13px;margin-left:0}.help-button{margin-left:auto}.grid,.toc{grid-template-columns:1fr}.hero{padding-top:52px}}@media print{.topbar,.hero-actions,.help-panel,dialog{display:none!important}.hero{padding:20px 0;background:#fff}main{padding-top:10px}pre{color:#000;background:#f2f2f2}}
+    /* Elementor and theme overrides */
+    html { scroll-padding-top: 155px !important; }
+    .topbar { position: sticky !important; top: 98px !important; z-index: 9999 !important; border-bottom: 1px dashed #000 !important; border-left: 1px dashed #000 !important; border-right: 1px dashed #000 !important; }
+    .help-button, .help-button:link, .help-button:visited,
+    .primary-button, .primary-button:link, .primary-button:visited {
+      color: #ffffff !important;
+      background: #5b21b6 !important;
+      border-color: #5b21b6 !important;
+    }
+    .help-button:hover, .help-button:focus,
+    .primary-button:hover, .primary-button:focus {
+      color: #ffffff !important;
+      background: #7c3aed !important;
+      border-color: #7c3aed !important;
+    }
+    .help-panel .help-button,
+    .help-panel .help-button:link,
+    .help-panel .help-button:visited {
+      color: #ffffff !important;
+      background: #7f1d1d !important;
+      border-color: #7f1d1d !important;
+    }
+    .help-panel .help-button:hover, .help-panel .help-button:focus {
+      color: #ffffff !important;
+      background: #a52a2a !important;
+      border-color: #a52a2a !important;
+    }
+    .help-panel h2, .help-panel p, .help-panel a,
+    dialog .primary-button, dialog .primary-button:link, dialog .primary-button:visited {
+      color: #ffffff !important;
+    }
+    .text-button, .text-button:link, .text-button:visited {
+      color: #ffffff !important;
+      background: #7f1d1d !important;
+      border-color: #7f1d1d !important;
+    }
+    .text-button:hover, .text-button:focus {
+      color: #ffffff !important;
+      background: #7f1d1d !important;
+    }
+    @media (max-width: 760px) {
+      .topbar { position: static !important; top: auto !important; }
+      .nav { min-height: 56px !important; padding: 9px 0 !important; align-items: center !important; flex-wrap: nowrap !important; }
+      .brand { font-size: .9rem !important; }
+      .links { margin-left: auto !important; flex-wrap: nowrap !important; gap: 0 !important; }
+      .links a { display: none !important; }
+      .links .help-button { display: inline-flex !important; margin-left: 0 !important; padding: 8px 10px !important; font-size: .82rem !important; line-height: 1.1 !important; white-space: nowrap !important; }
+      .primary-button, .help-button, .text-button { max-width: 100% !important; padding: 8px 10px !important; font-size: .9rem !important; line-height: 1.2 !important; white-space: nowrap !important; }
+      section#help, .help-panel { min-height: 0 !important; height: auto !important; overflow: visible !important; }
+      .help-panel { padding: 21px 18px !important; }
+      .help-panel h2 { margin-bottom: 9px !important; font-size: 1.45rem !important; }
+      .help-panel p { margin: 9px 0 !important; font-size: .96rem !important; line-height: 1.55 !important; }
+      .modal-actions { gap: 8px !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#top">Project to GitHub</a>
+      <div class="links">
+        <a href="#download">Downloads</a><a href="#repository">New repository</a><a href="#upload">Upload</a><a href="#collaborate">Work together</a><a href="#ai">AI agents</a>
+        <button class="help-button" type="button" data-open-help>Need help?</button>
+      </div>
+    </nav>
+  </header>
+
+  <div id="top" class="hero">
+    <div class="wrap">
+      <div class="eyebrow">A practical guide for the Claris community</div>
+      <h1>From a project folder on your computer to a safe private repository on GitHub.</h1>
+      <p>If Git and GitHub have felt harder than they should, that is understandable. There are several pieces with very similar names, and GitHub has more than one way to create something. This guide keeps the path simple and shows what to install, what each thing does, and what to type when you are ready to upload a project.</p>
+      <div class="hero-actions"><a class="primary-button" href="#download">Start with the downloads</a><button class="text-button" type="button" data-open-help>Need help with a project?</button></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <nav class="toc" aria-label="Guide contents">
+      <a href="#download">1. Downloads</a><a href="#accounts">2. Accounts and login</a><a href="#repository">3. New repository</a><a href="#prepare">4. Prepare your folder</a><a href="#upload">5. Upload it</a><a href="#daily">6. Keep it updated</a><a href="#collaborate">7. Permissions and teamwork</a><a href="#ai">8. Work with AI</a><a href="#download-package">Download package</a><a href="#help">Need help?</a>
+    </nav>
+
+    <section id="download">
+      <div class="eyebrow">1. Downloads</div>
+      <h2>What needs to be installed on Windows?</h2>
+      <p class="section-lead">For most React, TypeScript, FileMaker integration, and web projects, you only need Git. If you want to manage GitHub from PowerShell, GitHub CLI is useful but optional. You do not need to install both to use GitHub.</p>
+      <div class="grid">
+        <div class="card">
+          <h3>Download Git for Windows</h3>
+          <p>Use the official download page:</p>
+          <p><a class="primary-button" href="https://git-scm.com/install/windows" target="_blank" rel="noopener">Download Git for Windows</a></p>
+          <p>During the installer, the normal defaults are fine for a first installation. Git for Windows includes Git Bash and normally includes Git Credential Manager, which helps Windows remember your GitHub login without putting a password in your project.</p>
+          <p>After installation, close and reopen PowerShell and check:</p>
+          <pre><code>git --version</code></pre>
+        </div>
+        <div class="card">
+          <h3>Optional: download GitHub CLI</h3>
+          <p>GitHub CLI adds the <code>gh</code> command. It can create repositories, check your login, and open pull requests from a terminal.</p>
+          <p><a class="primary-button" href="https://cli.github.com/" target="_blank" rel="noopener">Download GitHub CLI</a></p>
+          <p>On Windows, you can also install it from PowerShell:</p>
+          <pre><code>winget install --id GitHub.cli -e --source winget</code></pre>
+          <p>Check it after reopening PowerShell:</p>
+          <pre><code>gh --version</code></pre>
+        </div>
+      </div>
+      <p class="small">Node.js, npm, and pnpm are separate JavaScript tools. If you already build React apps, you probably have what you need. Check with <code>node --version</code>, <code>npm --version</code>, and <code>pnpm --version</code>.</p>
+    </section>
+
+    <section id="accounts">
+      <div class="eyebrow">2. Accounts and login</div>
+      <h2>Keep your credentials out of the project</h2>
+      <p>GitHub does not accept your normal account password for Git pushes. The easiest beginner setup is to use HTTPS and let Git Credential Manager or GitHub CLI open a browser sign-in.</p>
+      <p>If you installed GitHub CLI, run:</p>
+      <pre><code>gh auth login</code></pre>
+      <p>Choose GitHub.com, HTTPS, and browser authentication. When it finishes, check which account is active:</p>
+      <pre><code>gh auth status</code></pre>
+      <p>If you use both a personal account and a company account on GitHub.com, authenticate each account when needed and use:</p>
+      <pre><code>gh auth switch</code></pre>
+      <div class="callout warning"><strong>Never send credentials to an AI agent.</strong> Do not paste passwords, personal access tokens, private SSH keys, database passwords, or real <code>.env</code> files into a chat. An agent can help you run the commands, but you should complete the sign-in yourself on your computer.</div>
+    </section>
+
+    <section id="repository">
+      <div class="eyebrow">3. New repository, not a GitHub App</div>
+      <h2>Create the online home for your project</h2>
+      <p>A repository is the place where your project files and Git history live on GitHub. A GitHub App is a separate type of integration that acts on behalf of software. For the purpose of putting your project on GitHub, you want a repository.</p>
+      <div class="card">
+        <h3>Create a repository on the GitHub website</h3>
+        <ol>
+          <li>Go to <a href="https://github.com/new" target="_blank" rel="noopener">github.com/new</a> and sign in.</li>
+          <li>Use the <strong>Owner</strong> menu to select your personal account or the company organization where the project belongs.</li>
+          <li>Enter a repository name, such as <code>openbridge</code>. Use a short name with letters, numbers, hyphens, underscores, or periods.</li>
+          <li>Add a short description if you like.</li>
+          <li>Choose <strong>Private</strong> unless you have made a deliberate decision to publish the project.</li>
+          <li>If you are uploading an existing project folder, leave <strong>Add a README</strong>, <strong>Add .gitignore</strong>, and <strong>Choose a license</strong> unchecked for now. Your local project may already have these files, and starting the online repository with extra files can create an unnecessary merge conflict.</li>
+          <li>Click <strong>Create repository</strong>.</li>
+        </ol>
+      </div>
+      <p>After GitHub creates the repository, leave that browser page open. The Quick Setup area shows the repository URL that you will connect to your local folder.</p>
+      <div class="callout success"><strong>Small but important distinction:</strong> the plus menu on GitHub includes several creation options. Choose <strong>New repository</strong>. Do not choose New GitHub App, New OAuth App, or another application option.</div>
+    </section>
+
+    <section id="prepare">
+      <div class="eyebrow">4. Prepare the local folder</div>
+      <h2>Check what you are about to upload</h2>
+      <p>Keep one project per folder. Before you connect it to GitHub, make sure the folder does not contain passwords, private keys, customer data, database exports, or a large generated folder such as <code>node_modules</code>.</p>
+      <h3>Open PowerShell in the project folder</h3>
+      <p>In File Explorer, open the project folder, click the address bar, type <code>powershell</code>, and press Enter. Or use:</p>
+      <pre><code>cd "C:\path\to\your\project"</code></pre>
+      <h3>Check or create a <code>.gitignore</code></h3>
+      <p>For a typical React or Vite project, the important entries look like this:</p>
+      <pre><code>node_modules/
+dist/
+build/
+.env
+.env.*
+!.env.example
+*.pem
+*.key</code></pre>
+      <p>It is fine to keep an <code>.env.example</code> file with empty example values and notes about what the project needs. Do not copy real values into it.</p>
+      <h3>Run the project checks</h3>
+      <pre><code>pnpm install
+pnpm build
+pnpm lint</code></pre>
+      <p>Use the commands listed in your own <code>package.json</code> if they are different. The point is to know that the project works before the first upload.</p>
+    </section>
+
+    <section id="upload">
+      <div class="eyebrow">5. Upload the project</div>
+      <h2>Initialize, commit, connect, and push</h2>
+      <p>Run these commands from the project folder. If the folder is already a Git repository, <code>git init</code> is harmless and simply confirms it.</p>
+      <pre><code>git init -b main
+git config user.name "Your Name"
+git config user.email "your-email@example.com"
+git status
+git add .
+git status
+git commit -m "Initial project version"</code></pre>
+      <p>Now copy the HTTPS URL from your new GitHub repository. It should look like this:</p>
+      <pre><code>https://github.com/OWNER/REPOSITORY.git</code></pre>
+      <p>Connect your local folder to that online repository:</p>
+      <pre><code>git remote add origin https://github.com/OWNER/REPOSITORY.git
+git remote -v</code></pre>
+      <p>If your project already has a remote called <code>origin</code>, use this instead:</p>
+      <pre><code>git remote set-url origin https://github.com/OWNER/REPOSITORY.git
+git remote -v</code></pre>
+      <p>Finally, send the local <code>main</code> branch to GitHub:</p>
+      <pre><code>git push -u origin main</code></pre>
+      <p>The <code>-u</code> connects your local branch to the online branch so later you can usually type only <code>git push</code>. If Git asks you to sign in, complete the browser or credential-manager prompt. Do not type your GitHub account password into a terminal prompt.</p>
+      <div class="callout warning"><strong>Read the second <code>git status</code> before committing.</strong> If you see a private key, password file, customer export, <code>.env</code> file, or anything you did not intend to share, stop. Update <code>.gitignore</code>, remove the file from staging with <code>git restore --staged path/to/file</code>, and inspect again.</div>
+    </section>
+
+    <section id="daily">
+      <div class="eyebrow">6. Keep it updated</div>
+      <h2>What you will normally do after the first upload</h2>
+      <p>Git is most useful when you make small, understandable checkpoints instead of waiting until the end of a large project. A commit is a saved point in the history. It is not a backup by itself until you push it to GitHub.</p>
+      <pre><code>git status
+git pull --rebase
+# make and test your changes
+git add .
+git diff --cached
+git commit -m "Describe the change"
+git push</code></pre>
+      <p>Examples of good commit messages include <code>Add attendee search</code>, <code>Fix FileMaker connection error</code>, and <code>Update conference schedule</code>. Git history is much easier to understand when each commit says what changed.</p>
+    </section>
+
+    <section id="collaborate">
+      <div class="eyebrow">7. Permissions and teamwork</div>
+      <h2>Give people access without making everything public</h2>
+      <p>A private repository is visible only to its owner and the people or teams granted access. To add somebody, open the repository on GitHub and go to <strong>Settings</strong>, then <strong>Collaborators and teams</strong> or <strong>Manage access</strong>. Invite their GitHub username or email and choose the appropriate role.</p>
+      <ul>
+        <li><strong>Read</strong> is enough to view and clone a repository.</li>
+        <li><strong>Write</strong> allows a person to push changes and open pull requests. This is usually the right role for a developer who needs to contribute.</li>
+        <li><strong>Maintain</strong> is for project management without the most sensitive administrative actions.</li>
+        <li><strong>Admin</strong> should be limited to people who need to manage access, repository settings, or deletion.</li>
+      </ul>
+      <p>For an organization-owned project, the organization owner or a repository administrator may need to add people to a team or repository. Company policies can also limit who may create repositories or change a repository from private to public.</p>
+      <h3>Use a branch for each piece of work</h3>
+      <p>Two people can work on the same project at the same time if they work in separate branches. Keep <code>main</code> in a reasonably working state, then create a branch for a feature or fix:</p>
+      <pre><code>git switch main
+git pull --rebase
+git switch -c feature/short-description
+# edit and test
+git add .
+git commit -m "Add short description"
+git push -u origin feature/short-description</code></pre>
+      <p>Open a pull request on GitHub, review the changes, and merge it into <code>main</code>. If two people edit the same lines, Git may report a conflict. That is not a disaster. It means Git needs a human decision about which version, or combination of versions, should remain.</p>
+    </section>
+
+    <section id="ai">
+      <div class="eyebrow">8. Work with AI agents</div>
+      <h2>Let the agent help with the work, not with your passwords</h2>
+      <p>Folder-based agents such as Codex can inspect a project, edit files, run checks, and explain a change. Put an <code>AGENTS.md</code> file in the project root so the agent knows the project rules. The companion file packaged with this guide is designed to be copied into a project and edited for that project.</p>
+      <p>A sensible agent workflow is:</p>
+      <ol>
+        <li>Read <code>AGENTS.md</code>, the README, and the current Git status.</li>
+        <li>Confirm the requested work and create a task branch.</li>
+        <li>Make the smallest coherent change.</li>
+        <li>Run the relevant tests, lint, and build commands.</li>
+        <li>Show the changed files and the diff.</li>
+        <li>Commit or push only when the project owner explicitly asks.</li>
+      </ol>
+      <p>Do not give an agent a private key, a GitHub token, a database password, customer data, or a production <code>.env</code> file. The agent can tell you exactly what to type after you authenticate locally.</p>
+    </section>
+
+    <section id="privacy">
+      <div class="eyebrow">9. Privacy and release</div>
+      <h2>Make a project public only after a deliberate review</h2>
+      <p>Before changing a repository from private to public, review the current files and the Git history. Removing a secret from the latest version does not remove it from older commits. If a credential was ever committed, rotate it first and clean the history before publication.</p>
+      <p>For client work, integrations, internal tools, and projects with real data, keeping the repository private is usually the better default. Public code should have a clear README, a license where appropriate, and no private customer or infrastructure details.</p>
+    </section>
+
+    <section id="download-package">
+      <div class="card">
+        <div class="eyebrow">Download the companion files</div>
+        <h2>Keep the guide and agent instructions together.</h2>
+        <p>Download the offline HTML guide, the Elementor snippet, the reusable <code>AGENTS.md</code> file, and the README package. This link is a placeholder for the public GitHub release.</p>
+        <div class="hero-actions"><a class="primary-button" href="https://github.com/RGCData/git-github-filemaker-guide/releases/latest" target="_blank" rel="noopener">Download the guide package</a><a class="text-button" href="https://rgcdata.com/" target="_blank" rel="noopener">Visit RGC Data</a></div>
+      </div>
+    </section>
+
+    <section id="help">
+      <div class="help-panel">
+        <div class="eyebrow" style="color:#9fc1ff">Need help?</div>
+        <h2>We would be glad to hear about your project.</h2>
+        <p>RGC Data LLC works with Claris FileMaker integrations and a wide range of connected systems. We handle FileMaker database work, web applications, React and TypeScript projects, WordPress, native and cross-platform mobile apps, QuickBooks, Salesforce, and other API-based systems.</p>
+        <p>If you are not sure how the pieces should fit together, we are happy to listen, talk through the project, and see whether we can be useful.</p>
+        <a class="help-button" href="https://rgcdata.com/contact-us/" target="_blank" rel="noopener">Request a quote</a>
+        <a class="text-button" href="mailto:alex@rgcdata.com">Email Alex</a>
+      </div>
+    </section>
+
+    <section id="references">
+      <div class="eyebrow">Further reading</div>
+      <h2>Official links</h2>
+      <ul>
+        <li><a href="https://git-scm.com/install/windows" target="_blank" rel="noopener">Git for Windows download</a></li>
+        <li><a href="https://cli.github.com/" target="_blank" rel="noopener">GitHub CLI download</a></li>
+        <li><a href="https://github.com/new" target="_blank" rel="noopener">Create a new GitHub repository</a></li>
+        <li><a href="https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository" target="_blank" rel="noopener">GitHub: creating a repository</a></li>
+        <li><a href="https://docs.github.com/en/migrations/importing-source-code/using-the-command-line-to-import-source-code/adding-locally-hosted-code-to-github" target="_blank" rel="noopener">GitHub: adding locally hosted code</a></li>
+        <li><a href="https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization" target="_blank" rel="noopener">GitHub: organization repository roles</a></li>
+        <li><a href="https://fullaccess.us/" target="_blank" rel="noopener">Full Access conference website</a></li>
+        <li><a href="https://rgcdata.com/" target="_blank" rel="noopener">RGC Data LLC</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <h2>About the author</h2>
+      <p>This guide was written by <strong>Alex Seidler</strong> of <strong>RGC Data LLC</strong>.</p>
+      <p><a href="mailto:alex@rgcdata.com">alex@rgcdata.com</a> · <a href="https://rgcdata.com/" target="_blank" rel="noopener">rgcdata.com</a></p>
+      <p>RGC Data handles FileMaker integrations, FileMaker database work, web development, React and TypeScript applications, native and cross-platform mobile apps, WordPress, QuickBooks, Salesforce, and other API integrations.</p>
+      <p><strong>Need help?</strong> We would love to discuss your project and see whether we can assist.</p>
+    </div>
+  </footer>
+
+  <dialog id="help-modal" aria-labelledby="help-title">
+    <div class="modal-head"><div><div class="eyebrow">RGC Data LLC</div><h2 id="help-title">Need help with your project?</h2></div><button class="close" type="button" aria-label="Close dialog" data-close-help>×</button></div>
+    <div class="modal-body">
+      <p>We help organizations connect FileMaker to the web, mobile apps, WordPress, QuickBooks, Salesforce, and other API systems. We also take on custom FileMaker and application work.</p>
+      <p>Send us a description of what you are trying to build. We would be happy to listen and talk through the options with you.</p>
+      <div class="modal-actions"><a class="primary-button" href="https://rgcdata.com/contact-us/" target="_blank" rel="noopener">Request a quote</a><a class="text-button" href="mailto:alex@rgcdata.com">Email Alex</a><button class="text-button" type="button" data-close-help>Close</button></div>
+    </div>
+  </dialog>
+  <script>
+    (() => {
+      const modal = document.getElementById('help-modal');
+      document.querySelectorAll('[data-open-help]').forEach((button) => button.addEventListener('click', () => modal.showModal()));
+      document.querySelectorAll('[data-close-help]').forEach((button) => button.addEventListener('click', () => modal.close()));
+      modal.addEventListener('click', (event) => { if (event.target === modal) modal.close(); });
+    })();
+  </script>
+</body>
+</html>
